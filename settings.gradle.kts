@@ -11,8 +11,10 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
+    versionCatalogs {
+        create("libs")
+    }
 }
 
 rootProject.name = "NewsApp"
-
 include(":app")

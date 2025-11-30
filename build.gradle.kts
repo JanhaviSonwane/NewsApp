@@ -1,15 +1,4 @@
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
-    dependencies {
-        classpath("com.android.tools.build:gradle:8.6.0")
-        classpath("com.google.dagger:hilt-android-gradle-plugin:2.47")
-        classpath(kotlin("gradle-plugin", version = "1.9.10"))
-    }
-}
+// Root build.gradle.kts (Project-level)
 
 allprojects {
     repositories {
@@ -18,6 +7,6 @@ allprojects {
     }
 }
 
-tasks.register("clean", Delete::class) {
+tasks.register<Delete>("clean") {
     delete(rootProject.buildDir)
 }

@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
 import com.example.newsapp.ui.screens.ArticleDetailScreen
 import com.example.newsapp.ui.screens.BookmarksScreen
 import com.example.newsapp.ui.screens.HomeScreen
@@ -44,14 +45,11 @@ fun NewsNavHost() {
         // It expects a URL parameter to fetch and display the specific article
         composable(
             route = "${Destinations.DETAIL}?url={url}",
-            arguments = listOf(navArgument("url") { type = NavType.StringType })
+            arguments = listOf(navArgument("url") { type = NavType.StringType }),
+            deepLinks = listOf(navDeepLink { uriPattern = "newsapp://article?url={url}" })
         ) { backStackEntry ->
-            // Retrieves the URL parameter from the back stack entry
             val url = backStackEntry.arguments?.getString("url") ?: ""
-            // Gets the NewsViewModel for this screen
-            val vm: NewsViewModel = hiltViewModel()
-            // Renders the ArticleDetailScreen with the article URL and back navigation callback
-            ArticleDetailScreen(articleUrl = url, viewModel = vm, onBack = { navController.popBackStack() })
+            ArticleDetailScreen(articleUrl = url, onBack = { navController.popBackStack() })
         }
         // Defines the BOOKMARKS route which displays the bookmarked articles
         composable(Destinations.BOOKMARKS) {
